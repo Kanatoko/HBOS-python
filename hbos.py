@@ -69,7 +69,7 @@ class HBOS:
                             binwidth = binwidth - 1
             else:
                 count_bins = 0
-                binwidth = (sorted_data[ attr ][ len(sorted_data) - 1 ] - sorted_data[ attr ][ 0 ]) / self.bin_info_array[ attrIndex ]
+                binwidth = (sorted_data[ attr ][ len(sorted_data) - 1 ] - sorted_data[ attr ][ 0 ]) *1.0 / self.bin_info_array[ attrIndex ]
                 if (self.nominal_array[ attrIndex ] == True) | (binwidth == 0):
                     binwidth = 1
                 while last < len(sorted_data):
@@ -177,7 +177,7 @@ class HBOS:
         #     continue putting the value into the _bin
         
         cursor = first_index
-        for i in range(first_index + 1, last_index):
+        for i in range(int(first_index + 1), int(last_index)):
             if sortedData[ attr ][ i ] == sortedData[ attr ][ cursor ]:
                 _bin.add_quantitiy(1)
                 cursor = cursor + 1
@@ -266,7 +266,7 @@ class HistogramBin:
             max_score = 1
         
         if self.quantity > 0:
-            self.score = self.quantity / ((self.range_to - self.range_from) * self.total_data_size / abs(max_score))
+            self.score = 1.0 * self.quantity / ((self.range_to - self.range_from) * self.total_data_size * 1.0 / abs(max_score))
         
     def normalize_score(self, normal, max_score, log_scale):
         self.score = self.score * normal / max_score
